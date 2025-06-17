@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Twitter, ArrowUp, Send, CheckCircle } from 'lucide-react';
+import { Instagram, Facebook, ArrowUp } from 'lucide-react';
 
 interface FooterProps {
   currentPage?: string;
@@ -8,8 +8,6 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ currentPage, setCurrentPage }) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [isNewsletterSubmitted, setIsNewsletterSubmitted] = useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -24,18 +22,6 @@ const Footer: React.FC<FooterProps> = ({ currentPage, setCurrentPage }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newsletterEmail) return;
-    
-    // Simulate newsletter subscription
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsNewsletterSubmitted(true);
-    setNewsletterEmail('');
-    
-    setTimeout(() => setIsNewsletterSubmitted(false), 3000);
-  };
-
   const handleNavigation = (page: string) => {
     if (setCurrentPage) {
       setCurrentPage(page);
@@ -43,35 +29,9 @@ const Footer: React.FC<FooterProps> = ({ currentPage, setCurrentPage }) => {
     }
   };
 
-  const contactInfo = [
-    {
-      icon: Phone,
-      label: "Phone",
-      values: ["+971 50 123 4567", "+971 4 567 8900"],
-      href: "tel:+971501234567",
-      color: "text-green-500"
-    },
-    {
-      icon: Mail,
-      label: "Email",
-      values: ["info@izellinteriors.com", "projects@izellinteriors.com"],
-      href: "mailto:info@izellinteriors.com",
-      color: "text-blue-500"
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      values: ["Dubai, United Arab Emirates", "Serving across UAE"],
-      href: "https://maps.google.com",
-      color: "text-red-500"
-    }
-  ];
-
   const socialLinks = [
-    { icon: Instagram, href: "#", color: "bg-gradient-to-r from-purple-500 to-pink-500", name: "Instagram" },
-    { icon: Facebook, href: "#", color: "bg-blue-600", name: "Facebook" },
-    { icon: Linkedin, href: "#", color: "bg-blue-700", name: "LinkedIn" },
-    { icon: Twitter, href: "#", color: "bg-blue-400", name: "Twitter" }
+    { icon: Instagram, href: "#", gradient: "from-purple-500 to-pink-500", name: "Instagram" },
+    { icon: Facebook, href: "#", gradient: "from-blue-600 to-blue-500", name: "Facebook" }
   ];
 
   const quickLinks = [
@@ -81,215 +41,143 @@ const Footer: React.FC<FooterProps> = ({ currentPage, setCurrentPage }) => {
     { name: 'Contact', id: 'contact' }
   ];
 
-  const services = [
-    'Interior Fit-Out',
-    'MEP Services',
-    'Civil Maintenance',
-    'Office Renovation',
-    'Residential Interior',
-    'Commercial Projects'
-  ];
-
   return (
     <>
       {/* Main Footer */}
-      <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <footer className="relative bg-slate-900 text-white overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-0 w-32 h-32 bg-purple-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        {/* Geometric pattern overlay */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            {/* Company Info */}
-            <div className="lg:col-span-1">
-              <div className="mb-6">
-                <img
-                  src="https://izellinteriors.com/img/logo.png"
-                  alt="Izell Interiors Logo"
-                  className="h-16 w-auto mb-4"
-                  style={{ 
-                    imageRendering: 'crisp-edges',
-                    filter: 'contrast(1.1) brightness(1.2)'
-                  }}
-                />
-                <p className="text-gray-300 leading-relaxed">
-                  Professional interior fit-out, MEP and civil maintenance company providing cost-effective solutions across UAE.
+            {/* Company Branding */}
+            <div className="text-center md:text-left space-y-4">
+              <h2 className="text-2xl font-bold  ">Izell Interiors</h2>
+              <div className="flex flex-col items-center md:items-start">
+                <p className="text-slate-300 text-sm leading-relaxed max-w-sm text-center md:text-left">
+                  Crafting exceptional interior spaces with precision, creativity, and excellence across the UAE.
                 </p>
               </div>
 
-              {/* Newsletter Signup */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold mb-4 text-orange-400">Stay Updated</h4>
-                {isNewsletterSubmitted ? (
-                  <div className="flex items-center gap-2 text-green-400">
-                    <CheckCircle className="w-5 h-5" />
-                    <span className="text-sm">Thank you for subscribing!</span>
-                  </div>
-                ) : (
-                  <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-                    <input
-                      type="email"
-                      value={newsletterEmail}
-                      onChange={(e) => setNewsletterEmail(e.target.value)}
-                      placeholder="Your email"
-                      className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm"
-                      required
-                    />
-                    <button
-                      type="submit"
-                      className="bg-orange-500 hover:bg-orange-600 p-2 rounded-lg transition-colors duration-300"
-                    >
-                      <Send className="w-4 h-4" />
-                    </button>
-                  </form>
-                )}
+              {/* Trust indicators */}
+              <div className="flex flex-wrap justify-center md:justify-start gap-3 text-xs text-slate-400">
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                  <span>Licensed & Insured</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                  <span>ISO Certified</span>
+                </div>
               </div>
+            </div>
+
+            {/* Enhanced Quick Links */}
+            <div className="text-center space-y-4">
+              <div className="relative">
+                <h3 className="text-lg font-bold text-white mb-4 relative">
+                  <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                    Explore
+                  </span>
+                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                </h3>
+              </div>
+              
+              <nav className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-w-sm mx-auto">
+                {quickLinks.map((link, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleNavigation(link.id)}
+                    className={`group relative bg-transparent hover:bg-slate-800/20 rounded-lg py-2 px-3 transition-all duration-300 ${
+                      currentPage === link.id ? 'text-orange-400' : 'text-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-center gap-2.5">
+                      <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 flex-shrink-0 ${
+                        currentPage === link.id ? 'bg-orange-400 scale-125' : 'bg-slate-500 group-hover:bg-orange-400 group-hover:scale-110'
+                      }`}></div>
+                      <span className="font-medium text-sm group-hover:text-orange-300 transition-colors duration-300 flex-1 text-center">
+                        {link.name}
+                      </span>
+                      <div className="w-1.5 h-1.5 flex-shrink-0 opacity-0"></div>
+                    </div>
+                  </button>
+                ))}
+              </nav>
 
               {/* Social Links */}
-              <div>
-                <h4 className="text-lg font-semibold mb-4 text-orange-400">Follow Us</h4>
-                <div className="flex space-x-3">
+              <div className="flex flex-col items-center space-y-3">
+                <h4 className="text-xs font-medium text-slate-300">Follow Our Journey</h4>
+                <div className="flex justify-center space-x-3">
                   {socialLinks.map((social, index) => (
                     <a
                       key={index}
                       href={social.href}
                       title={social.name}
-                      className={`${social.color} p-3 rounded-xl hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-2xl group`}
+                      className={`bg-gradient-to-r ${social.gradient} p-2.5 rounded-lg hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl group hover:-translate-y-1`}
                     >
-                      <social.icon className="h-5 w-5 group-hover:animate-bounce" />
+                      <social.icon className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
                     </a>
                   ))}
                 </div>
               </div>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6 text-orange-400">Quick Links</h4>
-              <ul className="space-y-3">
-                {quickLinks.map((link, index) => (
-                  <li key={index}>
-                    <button
-                      onClick={() => handleNavigation(link.id)}
-                      className={`text-gray-300 hover:text-orange-400 transition-colors duration-300 transform hover:translate-x-2 block ${
-                        currentPage === link.id ? 'text-orange-400 font-medium' : ''
-                      }`}
-                    >
-                      {link.name}
-                    </button>
-                  </li>
-                ))}
-                <li>
-                  <a href="#" className="text-gray-300 hover:text-orange-400 transition-colors duration-300 transform hover:translate-x-2 block">
+              
+              {/* Additional links */}
+              <div className="pt-4 border-t border-slate-700/50 space-y-2">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center text-xs">
+                  <a href="#" className="group flex items-center justify-center gap-1.5 text-slate-400 hover:text-orange-400 transition-all duration-300">
+                    <div className="w-1 h-1 bg-slate-500 group-hover:bg-orange-400 rounded-full transition-colors duration-300"></div>
                     Privacy Policy
                   </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-300 hover:text-orange-400 transition-colors duration-300 transform hover:translate-x-2 block">
+                  <a href="#" className="group flex items-center justify-center gap-1.5 text-slate-400 hover:text-orange-400 transition-all duration-300">
+                    <div className="w-1 h-1 bg-slate-500 group-hover:bg-orange-400 rounded-full transition-colors duration-300"></div>
                     Terms of Service
                   </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Services */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6 text-orange-400">Our Services</h4>
-              <ul className="space-y-3">
-                {services.map((service, index) => (
-                  <li key={index}>
-                    <a href="#" className="text-gray-300 hover:text-orange-400 transition-colors duration-300 transform hover:translate-x-2 block">
-                      {service}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6 text-orange-400">Contact Info</h4>
-              <div className="space-y-4">
-                {contactInfo.map((item, index) => (
-                  <div key={index} className="group">
-                    <div className="flex items-start space-x-3">
-                      <div className={`${item.color} p-2 rounded-lg mt-1`}>
-                        <item.icon className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-white mb-1">{item.label}</div>
-                        {item.values.map((value, valueIndex) => (
-                          <div key={valueIndex} className="text-gray-300 text-sm group-hover:text-orange-300 transition-colors duration-300">
-                            {value}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Business Hours */}
-              <div className="mt-6">
-                <h5 className="font-semibold text-white mb-3">Business Hours</h5>
-                <div className="space-y-1 text-sm text-gray-300">
-                  <div className="flex justify-between">
-                    <span>Mon - Fri:</span>
-                    <span>8:00 AM - 6:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Saturday:</span>
-                    <span>9:00 AM - 4:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sunday:</span>
-                    <span>Closed</span>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-700/50 bg-black/30 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-center md:text-left">
-                <p className="text-gray-400 text-sm">
-                  © 2025 Izell Interiors LLC. All rights reserved.
-                </p>
-              </div>
-              
-              <div className="flex items-center gap-6 text-sm text-gray-400">
-                <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                  Licensed & Insured
-                </span>
-                <span>•</span>
-                <span>Made with ❤️ in UAE</span>
-                <span>•</span>
-                <span>ISO Certified</span>
-              </div>
+        {/* Bottom section */}
+        <div className="relative z-10 border-t border-slate-700/50 bg-slate-800/30 backdrop-blur-sm">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div className="text-center">
+              <p className="text-slate-400 text-xs">
+                © 2025 Izell Interiors LLC. All rights reserved.
+              </p>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Scroll to Top Button */}
+      {/* Scroll to Top Button - matching homepage CTA styling */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 rounded-full shadow-2xl transition-all duration-500 transform hover:scale-110 hover:shadow-3xl z-50 group ${
-          showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'
+        className={`fixed bottom-6 right-6 bg-gradient-to-r from-amber-500 to-orange-600 text-white p-3 rounded-full shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:shadow-amber-500/25 z-50 group ${
+          showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0 pointer-events-none'
         }`}
+        aria-label="Scroll to top"
       >
-        <ArrowUp className="w-6 h-6 group-hover:animate-bounce" />
-        <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-          Back to Top
-        </div>
+        <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </button>
     </>
   );

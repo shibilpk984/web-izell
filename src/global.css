@@ -162,11 +162,7 @@ html {
   color: white;
 }
 
-*:focus {
-  outline: 2px solid #f97316;
-  outline-offset: 2px;
-  transition: outline 0.3s ease;
-}
+
 
 @media (prefers-reduced-motion: reduce) {
   *,

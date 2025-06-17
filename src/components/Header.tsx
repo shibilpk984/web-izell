@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
           <div className="flex-shrink-0 transform transition-all duration-700 hover:scale-105">
             <button onClick={() => handleNavClick('home')}>
               <img
-                src="https://izellinteriors.com/img/logo.png"
+                src="https://www.izellinteriors.com/img/izel-logo.png"
                 alt="Izell Interiors Logo"
                 className="h-20 w-auto transition-all duration-300"
                 style={{
