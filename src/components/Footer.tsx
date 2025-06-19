@@ -1,185 +1,216 @@
-import React, { useState } from 'react';
-import { Instagram, Facebook, ArrowUp } from 'lucide-react';
+import React from 'react';
+import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
-interface FooterProps {
-  currentPage?: string;
-  setCurrentPage?: (page: string) => void;
-}
+const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
 
-const Footer: React.FC<FooterProps> = ({ currentPage, setCurrentPage }) => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleNavigation = (page: string) => {
-    if (setCurrentPage) {
-      setCurrentPage(page);
-      scrollToTop();
+  const contactInfo = [
+    {
+      icon: Phone,
+      label: "Phone",
+      details: ["+971 50 123 4567", "+971 4 567 8900"]
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      details: ["info@izellinteriors.com", "projects@izellinteriors.com"]
+    },
+    {
+      icon: MapPin,
+      label: "Location",
+      details: ["Dubai, United Arab Emirates"]
+    },
+    {
+      icon: Clock,
+      label: "Working Hours",
+      details: ["Mon-Fri: 8:00 AM - 6:00 PM", "Sat: 9:00 AM - 4:00 PM"]
     }
-  };
+  ];
 
-  const socialLinks = [
-    { icon: Instagram, href: "#", gradient: "from-purple-500 to-pink-500", name: "Instagram" },
-    { icon: Facebook, href: "#", gradient: "from-blue-600 to-blue-500", name: "Facebook" }
+  const services = [
+    "Interior Fit-Out",
+    "MEP Services", 
+    "Civil Maintenance",
+    "Office Renovation",
+    "Residential Interior",
+    "Commercial Projects"
   ];
 
   const quickLinks = [
-    { name: 'Home', id: 'home' },
-    { name: 'About Us', id: 'about' },
-    { name: 'Projects', id: 'projects' },
-    { name: 'Contact', id: 'contact' }
+    "About Us",
+    "Our Projects",
+    "Services",
+    "Contact Us",
+    "Privacy Policy",
+    "Terms of Service"
+  ];
+
+  const socialLinks = [
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Linkedin, href: "#", label: "LinkedIn" }
   ];
 
   return (
-    <>
-      {/* Main Footer */}
-      <footer className="relative bg-slate-900 text-white overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-0 w-32 h-32 bg-purple-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
-        
-        {/* Geometric pattern overlay */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#grid)" />
-          </svg>
-        </div>
+    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-orange-500 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+      </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="relative z-10">
+        {/* Main footer content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             
-            {/* Company Branding */}
-            <div className="text-center md:text-left space-y-4">
-              <h2 className="text-2xl font-bold  ">Izell Interiors</h2>
-              <div className="flex flex-col items-center md:items-start">
-                <p className="text-slate-300 text-sm leading-relaxed max-w-sm text-center md:text-left">
-                  Crafting exceptional interior spaces with precision, creativity, and excellence across the UAE.
+            {/* Company Info */}
+            <div className="lg:col-span-1">
+              <div className="mb-6">
+                <img
+                  src="https://www.izellinteriors.com/img/izel-logo.png"
+                  alt="Izell Interiors Logo"
+                  className="h-16 w-auto mb-4"
+                  style={{
+                    imageRendering: 'crisp-edges',
+                    filter: 'contrast(1.1) brightness(1.2)'
+                  }}
+                />
+                <h3 className="text-xl font-bold text-white mb-4">Izell Interiors</h3>
+                <p className="text-gray-300 leading-relaxed mb-6">
+                  Professional interior fit-out, MEP and civil maintenance company based in UAE. 
+                  We provide cost-effective and convenient services across the Emirates.
                 </p>
               </div>
-
-              {/* Trust indicators */}
-              <div className="flex flex-wrap justify-center md:justify-start gap-3 text-xs text-slate-400">
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                  <span>Licensed & Insured</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                  <span>ISO Certified</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Enhanced Quick Links */}
-            <div className="text-center space-y-4">
-              <div className="relative">
-                <h3 className="text-lg font-bold text-white mb-4 relative">
-                  <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                    Explore
-                  </span>
-                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
-                </h3>
-              </div>
               
-              <nav className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-w-sm mx-auto">
-                {quickLinks.map((link, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleNavigation(link.id)}
-                    className={`group relative bg-transparent hover:bg-slate-800/20 rounded-lg py-2 px-3 transition-all duration-300 ${
-                      currentPage === link.id ? 'text-orange-400' : 'text-slate-300'
-                    }`}
-                  >
-                    <div className="flex items-center justify-center gap-2.5">
-                      <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 flex-shrink-0 ${
-                        currentPage === link.id ? 'bg-orange-400 scale-125' : 'bg-slate-500 group-hover:bg-orange-400 group-hover:scale-110'
-                      }`}></div>
-                      <span className="font-medium text-sm group-hover:text-orange-300 transition-colors duration-300 flex-1 text-center">
-                        {link.name}
-                      </span>
-                      <div className="w-1.5 h-1.5 flex-shrink-0 opacity-0"></div>
-                    </div>
-                  </button>
-                ))}
-              </nav>
-
               {/* Social Links */}
-              <div className="flex flex-col items-center space-y-3">
-                <h4 className="text-xs font-medium text-slate-300">Follow Our Journey</h4>
-                <div className="flex justify-center space-x-3">
+              <div>
+                <h4 className="text-lg font-semibold mb-4 text-orange-400">Follow Us</h4>
+                <div className="flex space-x-4">
                   {socialLinks.map((social, index) => (
                     <a
                       key={index}
                       href={social.href}
-                      title={social.name}
-                      className={`bg-gradient-to-r ${social.gradient} p-2.5 rounded-lg hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl group hover:-translate-y-1`}
+                      aria-label={social.label}
+                      className="w-10 h-10 bg-gray-700 hover:bg-orange-500 rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
                     >
-                      <social.icon className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
+                      <social.icon className="w-5 h-5" />
                     </a>
                   ))}
                 </div>
               </div>
-              
-              {/* Additional links */}
-              <div className="pt-4 border-t border-slate-700/50 space-y-2">
-                <div className="flex flex-col sm:flex-row gap-3 justify-center text-xs">
-                  <a href="#" className="group flex items-center justify-center gap-1.5 text-slate-400 hover:text-orange-400 transition-all duration-300">
-                    <div className="w-1 h-1 bg-slate-500 group-hover:bg-orange-400 rounded-full transition-colors duration-300"></div>
-                    Privacy Policy
-                  </a>
-                  <a href="#" className="group flex items-center justify-center gap-1.5 text-slate-400 hover:text-orange-400 transition-all duration-300">
-                    <div className="w-1 h-1 bg-slate-500 group-hover:bg-orange-400 rounded-full transition-colors duration-300"></div>
-                    Terms of Service
-                  </a>
+            </div>
+
+            {/* Services */}
+            <div>
+              <h4 className="text-lg font-semibold mb-6 text-orange-400">Our Services</h4>
+              <ul className="space-y-3">
+                {services.map((service, index) => (
+                  <li key={index}>
+                    <a
+                      href="#"
+                      className="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group"
+                    >
+                      <span className="w-2 h-2 bg-orange-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      {service}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-lg font-semibold mb-6 text-orange-400">Quick Links</h4>
+              <ul className="space-y-3">
+                {quickLinks.map((link, index) => (
+                  <li key={index}>
+                    <a
+                      href="#"
+                      className="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group"
+                    >
+                      <span className="w-2 h-2 bg-orange-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact Information */}
+            <div>
+              <h4 className="text-lg font-semibold mb-6 text-orange-400">Contact Info</h4>
+              <div className="space-y-6">
+                {contactInfo.map((info, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <info.icon className="w-4 h-4 text-orange-400" />
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-white mb-1">{info.label}</h5>
+                      {info.details.map((detail, detailIndex) => (
+                        <p key={detailIndex} className="text-gray-300 text-sm">
+                          {detail}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Newsletter Subscription */}
+        <div className="border-t border-gray-700">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-2xl p-8 border border-orange-500/20">
+              <div className="text-center max-w-2xl mx-auto">
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  Stay Updated With Our Latest Projects
+                </h3>
+                <p className="text-gray-300 mb-6">
+                  Subscribe to our newsletter to receive updates about our latest interior projects and design trends.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-1 px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
+                  />
+                  <button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                    Subscribe
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom section */}
-        <div className="relative z-10 border-t border-slate-700/50 bg-slate-800/30 backdrop-blur-sm">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div className="text-center">
-              <p className="text-slate-400 text-xs">
-                © 2025 Izell Interiors LLC. All rights reserved.
-              </p>
+        {/* Bottom bar */}
+        <div className="border-t border-gray-700">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="text-gray-300 text-sm mb-4 md:mb-0">
+                © {currentYear} Izell Interiors. All rights reserved.
+              </div>
+              <div className="flex items-center space-x-6 text-sm text-gray-300">
+                <a href="#" className="hover:text-orange-400 transition-colors duration-300">
+                  Privacy Policy
+                </a>
+                <a href="#" className="hover:text-orange-400 transition-colors duration-300">
+                  Terms of Service
+                </a>
+                <a href="#" className="hover:text-orange-400 transition-colors duration-300">
+                  Sitemap
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </footer>
-
-      {/* Scroll to Top Button - matching homepage CTA styling */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 bg-gradient-to-r from-amber-500 to-orange-600 text-white p-3 rounded-full shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:shadow-amber-500/25 z-50 group ${
-          showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0 pointer-events-none'
-        }`}
-        aria-label="Scroll to top"
-      >
-        <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      </button>
-    </>
+      </div>
+    </footer>
   );
 };
 
