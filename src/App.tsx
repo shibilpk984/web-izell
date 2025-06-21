@@ -5,7 +5,6 @@ import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import ProjectsPage from './components/ProjectsPage';
 import ContactPage from './components/ContactPage';
-import Footer from './components/Footer';
 
 export type PageType = 'home' | 'about' | 'projects' | 'contact';
 
@@ -19,7 +18,6 @@ const IzellInteriorsApp: React.FC = () => {
     const currentIndex = pageOrder.indexOf(currentPage);
     const newIndex = pageOrder.indexOf(newPage);
     
-    // Determine slide direction based on page order
     setDirection(newIndex > currentIndex ? 1 : -1);
     setCurrentPage(newPage);
   };
@@ -27,15 +25,15 @@ const IzellInteriorsApp: React.FC = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage key="home" onPageChange={handlePageChange} />;
+        return <HomePage key="home" onPageChange={handlePageChange} currentPage={currentPage} />;
       case 'about':
-        return <AboutPage key="about" onPageChange={handlePageChange} />;
+        return <AboutPage key="about" onPageChange={handlePageChange} currentPage={currentPage} />;
       case 'projects':
-        return <ProjectsPage key="projects" onPageChange={handlePageChange} />;
+        return <ProjectsPage key="projects" onPageChange={handlePageChange} currentPage={currentPage} />;
       case 'contact':
-        return <ContactPage key="contact" onPageChange={handlePageChange} />;
+        return <ContactPage key="contact" onPageChange={handlePageChange} currentPage={currentPage} />;
       default:
-        return <HomePage key="home" onPageChange={handlePageChange} />;
+        return <HomePage key="home" onPageChange={handlePageChange} currentPage={currentPage} />;
     }
   };
 
@@ -51,8 +49,6 @@ const IzellInteriorsApp: React.FC = () => {
           {renderPage()}
         </AnimatePresence>
       </main>
-      
-      <Footer />
     </div>
   );
 };

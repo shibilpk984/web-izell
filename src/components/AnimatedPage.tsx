@@ -29,9 +29,15 @@ const pageTransition = {
 };
 
 const AnimatedPage: React.FC<AnimatedPageProps> = ({ children, className = '' }) => {
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const scrollTop = e.currentTarget.scrollTop;
+    // Dispatch custom event for header to listen to
+    window.dispatchEvent(new CustomEvent('pageScroll', { detail: { scrollTop } }));
+  };
+
   return (
     <motion.div
-      className={`absolute top-0 left-0 w-full min-h-screen bg-white overflow-auto ${className}`}
+      className={`fixed inset-0 w-full bg-white ${className}`}
       initial="initial"
       animate="in"
       exit="out"
@@ -40,9 +46,19 @@ const AnimatedPage: React.FC<AnimatedPageProps> = ({ children, className = '' })
       style={{ 
         zIndex: 20,
         willChange: 'transform',
+        overflow: 'hidden',
       }}
     >
-      <div className="w-full">
+      <div 
+        className="w-full h-full"
+        data-scroll-container
+        onScroll={handleScroll}
+        style={{
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          height: '100vh',
+        }}
+      >
         {children}
       </div>
     </motion.div>

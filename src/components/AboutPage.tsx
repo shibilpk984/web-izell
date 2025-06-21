@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Star, Users, Award, TrendingUp, CheckCircle, Target, Eye, Heart } from 'lucide-react';
 import AnimatedPage from './AnimatedPage';
+import Footer from './Footer';
 import type { PageType } from '../App';
 
 interface AboutPageProps {
   onPageChange?: (page: PageType) => void;
+  currentPage?: PageType;
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
+const AboutPage: React.FC<AboutPageProps> = ({ onPageChange, currentPage }) => {
   const [visibleElements, setVisibleElements] = useState<Set<string>>(new Set());
   const [counters, setCounters] = useState({ projects: 0, satisfaction: 0, experience: 0, clients: 0 });
   
@@ -373,6 +375,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
             </div>
           </div>
         </section>
+
+        {/* Footer */}
+        <Footer currentPage={currentPage} onPageChange={onPageChange} />
       </div>
     </AnimatedPage>
   );

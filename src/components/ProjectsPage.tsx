@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, ArrowRight, Calendar, MapPin, User, Building, Search, Filter } from 'lucide-react';
 import AnimatedPage from './AnimatedPage';
+import Footer from './Footer';
 import type { PageType } from '../App';
 
 interface Project {
@@ -19,9 +20,10 @@ interface Project {
 
 interface ProjectsPageProps {
   onPageChange?: (page: PageType) => void;
+  currentPage?: PageType;
 }
 
-const ProjectsPage: React.FC<ProjectsPageProps> = ({ onPageChange }) => {
+const ProjectsPage: React.FC<ProjectsPageProps> = ({ onPageChange, currentPage }) => {
   const [activeTab, setActiveTab] = useState('all');
   const [visibleProjects, setVisibleProjects] = useState<Set<number>>(new Set());
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
@@ -494,6 +496,9 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onPageChange }) => {
             animation: fadeInUp 0.8s ease-out forwards;
           }
         `}</style>
+
+        {/* Footer */}
+        <Footer currentPage={currentPage} onPageChange={onPageChange} />
       </div>
     </AnimatedPage>
   );

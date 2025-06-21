@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, User, MessageSquare, Building, Calendar } from 'lucide-react';
 import AnimatedPage from './AnimatedPage';
+import Footer from './Footer';
 import type { PageType } from '../App';
 
 interface ContactPageProps {
   onPageChange?: (page: PageType) => void;
+  currentPage?: PageType;
 }
 
-const ContactPage: React.FC<ContactPageProps> = () => {
+const ContactPage: React.FC<ContactPageProps> = ({ onPageChange, currentPage }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -476,6 +478,9 @@ const ContactPage: React.FC<ContactPageProps> = () => {
             </div>
           </div>
         </section>
+
+        {/* Footer */}
+        <Footer currentPage={currentPage} onPageChange={onPageChange} />
       </div>
     </AnimatedPage>
   );

@@ -12,31 +12,60 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const handlePageScroll = (e: CustomEvent) => {
+      const scrollTop = e.detail.scrollTop;
+      
+      // For home page, show tint when scrolled > 50px
+      // For other pages, always show tint
+      if (currentPage === 'home') {
+        setIsScrolled(scrollTop > 50);
+      } else {
+        setIsScrolled(true);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+
+    // Set initial state
+    if (currentPage !== 'home') {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+
+    // Listen for custom scroll events from pages
+    window.addEventListener('pageScroll', handlePageScroll as EventListener);
+    
+    return () => {
+      window.removeEventListener('pageScroll', handlePageScroll as EventListener);
+    };
+  }, [currentPage]);
 
   const navigation = [
     { name: 'Home', page: 'home' as PageType },
-    { name: 'About', page: 'about' as PageType },
+    { name: 'About Us', page: 'about' as PageType },
     { name: 'Projects', page: 'projects' as PageType },
-    { name: 'Contact', page: 'contact' as PageType }
+    { name: 'Contact Us', page: 'contact' as PageType }
   ];
 
   const handleNavClick = (page: PageType) => {
     onPageChange(page);
     setIsMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Scroll to top of the page container
+    setTimeout(() => {
+      const scrollContainer = document.querySelector('[data-scroll-container]');
+      if (scrollContainer) {
+        scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isScrolled || currentPage !== 'home'
-          ? 'bg-black/80 backdrop-blur-sm shadow-lg py-3'
+          ? 'bg-black/75 backdrop-blur-md shadow-xl py-3 border-b border-gray-700/30'
           : 'bg-transparent py-4'
       }`}
     >
@@ -118,7 +147,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange }) => {
           isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="bg-black/85 backdrop-blur-sm border-t border-gray-600/30">
+        <div className="bg-black/80 backdrop-blur-md border-t border-gray-600/40">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navigation.map((item, index) => (
               <button
